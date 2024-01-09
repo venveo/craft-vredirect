@@ -405,7 +405,8 @@ class Redirect extends Element
             new RedirectSourceField([
                 'label' => Plugin::t('Source URI'),
                 'attribute' => 'sourceUrl',
-                'instructions' => Plugin::t('Enter the URI to redirect'),
+                'placeholder' => 'path/to/a/page',
+                'instructions' => Plugin::t('The URI is the part of the URL after the domain. For example, to redirect requests for `https://example.com/path/to/a/page`, enter path/to/a/page.'),
             ]);
         $layoutElements[] =
             new RedirectSourceUrlExistingWarning([
@@ -422,7 +423,7 @@ class Redirect extends Element
         $layoutElements[] =
             new RedirectDestinationField([
                 'label' => Plugin::t('Redirect Destination'),
-                'instructions' => Plugin::t('Configure the element or external URL to send this request to'),
+                'instructions' => Plugin::t('Enter the path or URL you want to redirect to.'),
             ]);
 
         $fieldLayout = new FieldLayout();
@@ -568,10 +569,6 @@ EOD;
 
         if ($this->hitCount) {
             $metadata[Plugin::t('Total Hits')] = $formatter->asInteger($this->hitCount);
-        }
-
-        if ($syncedElement = $this->getDestinationElement()) {
-            $metadata[Plugin::t('Linked Element')] = Cp::elementHtml($syncedElement);
         }
         if ($this->hitAt) {
             $metadata[Plugin::t('Last Hit')] = $formatter->asDatetime($this->hitAt,
