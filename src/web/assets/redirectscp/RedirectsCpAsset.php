@@ -4,7 +4,6 @@ namespace venveo\redirect\web\assets\redirectscp;
 
 use craft\web\AssetBundle;
 use craft\web\assets\cp\CpAsset;
-use craft\web\assets\htmx\HtmxAsset;
 use craft\web\View;
 use yii\web\JqueryAsset;
 class RedirectsCpAsset extends AssetBundle
@@ -18,8 +17,7 @@ class RedirectsCpAsset extends AssetBundle
 
         $this->depends = [
             CpAsset::class,
-            JqueryAsset::class,
-            HtmxAsset::class,
+            JqueryAsset::class
         ];
 
         $this->css[] = 'css/redirectscp.css';
