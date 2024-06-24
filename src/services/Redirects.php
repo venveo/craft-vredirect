@@ -15,7 +15,6 @@ use craft\events\ElementEvent;
 use craft\helpers\Db;
 use craft\helpers\ElementHelper;
 use craft\helpers\UrlHelper;
-use craft\models\Site;
 use DateTime;
 use Exception;
 use Throwable;
@@ -268,19 +267,26 @@ class Redirects extends Component
 
 
     /**
-     * Returns all sites that the user can create redirects in
-     *
-     * @return Site[]
+     * @return array
      */
-    public function getValidSites(): array
+    public function getSiteSelectorOptions(): array
     {
-        $sites = [];
-        foreach (Craft::$app->getSites()->getEditableSites() as $site) {
+        $editableSiteIds = Craft::$app->getSites()->getEditableSiteIds();
+
+        $options = [];
+        foreach (Craft::$app->getSites()->getAllSites() as $site) {
             if (!Craft::$app->config->general->headlessMode && !$site->hasUrls) {
                 continue;
             }
-            $sites[] = $site;
+            $isEditable = in_array($site->id, $editableSiteIds, true);
+            $options[] = [
+                'id' => $site->id,
+                'baseUrl' => $site->getBaseUrl(),
+                'name' => $site->name,
+                'handle' => $site->handle,
+                'editable' => $isEditable
+            ];
         }
-        return $sites;
+        return $options;
     }
 }

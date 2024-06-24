@@ -66,20 +66,16 @@ class RedirectDestinationField extends BaseNativeField
      */
     protected function inputHtml(?ElementInterface $element = null, bool $static = false): ?string
     {
+        if (!$element instanceof Redirect) {
+            throw new InvalidArgumentException('RedirectDestinationField can only be used in Redirect field layouts.');
+        }
         Craft::$app->getView()->registerAssetBundle(RedirectsCpAsset::class);
 
         $config = [
             'id' => 'redirectDestination',
         ];
-        $destinationSites = Plugin::getInstance()->redirects->getValidSites();
-        $config['siteOptions'] = array_map(function($site) {
-            return [
-                'id' => $site->id,
-                'baseUrl' => $site->getBaseUrl(),
-                'name' => $site->name,
-                'handle' => $site->handle,
-            ];
-        }, $destinationSites);
+        $destinationSites = Plugin::getInstance()->redirects->getSiteSelectorOptions();
+        $config['siteOptions'] = $destinationSites;
 
 
         $view = Craft::$app->getView();
@@ -94,8 +90,8 @@ JS, [
             ],
         ]);
 
-        $siteOptions = array_merge([['label' => 'External URL', 'value' => null]], array_map(function($site) {
-            return ['label' => $site->name, 'value' => $site->id];
+        $siteOptions = array_merge([['label' => 'External URL', 'value' => null]], array_map(function ($site) {
+            return ['label' => $site['name'], 'value' => $site['id'], 'disabled' => !$site['editable']];
         }, $destinationSites));
 
         $html = Html::beginTag('div', ['id' => $config['id']]) .
