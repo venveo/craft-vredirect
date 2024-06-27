@@ -35,7 +35,9 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use venveo\redirect\elements\conditions\RedirectCondition;
 use venveo\redirect\elements\db\RedirectQuery;
+use venveo\redirect\fieldlayoutelements\LinkDestinationToElementTip;
 use venveo\redirect\fieldlayoutelements\RedirectDestinationField;
+use venveo\redirect\fieldlayoutelements\RedirectLinkedElement;
 use venveo\redirect\fieldlayoutelements\RedirectSourceField;
 use venveo\redirect\fieldlayoutelements\RedirectSourceUrlExistingWarning;
 use venveo\redirect\models\Group;
@@ -423,9 +425,19 @@ class Redirect extends Element
             ]);
         $layoutElements[] =
             new RedirectDestinationField([
+                'uid' => 'redirectDestination',
                 'label' => Plugin::t('Redirect Destination'),
                 'instructions' => Plugin::t('Enter the path or URL you want to redirect to.'),
             ]);
+        $layoutElements[] = new RedirectLinkedElement([
+            'uid' => 'redirectLinkedElement',
+        ]);
+
+        $possibleMatch = $this->findMatchingDestinationElement();
+        $layoutElements[] = new LinkDestinationToElementTip([
+            'uid' => 'linkDestinationToElementTip',
+            'suggestedElement' => $possibleMatch
+        ]);
 
         $fieldLayout = new FieldLayout();
 
@@ -995,6 +1007,25 @@ EOD;
     {
         if ($this->destinationElementId !== null) {
             return Craft::$app->getElements()->getElementById($this->destinationElementId, null, $this->siteId);
+        }
+        return null;
+    }
+
+    /**
+     * Find an element that matches the destination URL
+     *
+     * @return ElementInterface|null
+     */
+    public function findMatchingDestinationElement(): ?ElementInterface
+    {
+        // If we're not a static redirect or we don't have a destination URL, we can't match an element
+        if ($this->type !== self::TYPE_STATIC || !isset($this->_destinationUrl)) {
+            return null;
+        }
+
+
+        if ($this->destinationSiteId !== null) {
+            return Craft::$app->getElements()->getElementByUri($this->_destinationUrl, $this->destinationSiteId, true);
         }
         return null;
     }

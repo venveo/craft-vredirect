@@ -4,14 +4,15 @@ namespace venveo\redirect\fieldlayoutelements;
 
 use Craft;
 use craft\base\ElementInterface;
-use craft\fieldlayoutelements\BaseNativeField;
+use craft\fieldlayoutelements\BaseField;
 use craft\helpers\Cp;
 use craft\helpers\Html;
 use venveo\redirect\elements\Redirect;
 use venveo\redirect\Plugin;
 use venveo\redirect\web\assets\redirectscp\RedirectsCpAsset;
+use yii\base\InvalidArgumentException;
 
-class RedirectDestinationField extends BaseNativeField
+class RedirectDestinationField extends BaseField
 {
     /**
      * @inheritdoc

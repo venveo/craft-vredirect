@@ -13,3 +13,5 @@ import "./js/CatchAllIndex";
 import "./js/ElementRedirectSlideout";
 import "./js/RedirectsIndex";
 import "./js/UrlFieldInput";
+import "./js/RedirectLinkedElement";
+import "./js/LinkDestinationToElementTip";
