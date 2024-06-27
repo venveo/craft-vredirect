@@ -1,5 +1,21 @@
 # Redirect Changelog
 
+## Unreleased
+
+### Added
+- Ability to link and unlink redirects from elements
+
+### Fixed
+
+- Fixed permission errors when creating a new redirect
+- Fixed broken slideout when creating a new redirect
+
+### Changed
+
+- Improved UI for creating new redirects
+- Linked elements are not unlinked when the destination site changes to null
+- Improved field instructions
+
 ## 4.0.0-beta.6 - 2024-01-09
 
 ### Fixed
