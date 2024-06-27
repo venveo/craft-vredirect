@@ -1,8 +1,9 @@
 # Redirect Changelog
 
-## Unreleased
+## 4.0.0-beta.8 - 2024-06-27
 
 ### Added
+
 - Ability to link and unlink redirects from elements
 
 ### Fixed
