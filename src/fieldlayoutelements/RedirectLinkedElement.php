@@ -4,8 +4,6 @@ namespace venveo\redirect\fieldlayoutelements;
 
 use Craft;
 use craft\base\ElementInterface;
-use craft\base\FieldLayoutElement;
-use craft\fieldlayoutelements\BaseField;
 use craft\fieldlayoutelements\BaseUiElement;
 use craft\helpers\Cp;
 use craft\helpers\Html;

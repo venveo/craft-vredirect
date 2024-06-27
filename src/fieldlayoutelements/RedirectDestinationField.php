@@ -91,7 +91,7 @@ JS, [
             ],
         ]);
 
-        $siteOptions = array_merge([['label' => 'External URL', 'value' => null]], array_map(function ($site) {
+        $siteOptions = array_merge([['label' => 'External URL', 'value' => null]], array_map(static function ($site) {
             return ['label' => $site['name'], 'value' => $site['id'], 'disabled' => !$site['editable']];
         }, $destinationSites));
 
@@ -101,7 +101,6 @@ JS, [
                 'options' => $siteOptions,
                 'name' => 'destinationSiteId',
                 'value' => $element->destinationSiteId,
-//                'data-attribute' => 'destinationSiteId'
             ]) .
             Html::beginTag('div', ['class' => 'destinationUrlWrapper']) .
             Html::tag('div', '', [

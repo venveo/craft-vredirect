@@ -63,7 +63,7 @@ class LinkDestinationToElementTip extends BaseUiElement
      */
     public function showInForm(?ElementInterface $element = null): bool
     {
-        return $element instanceof Redirect && $element->destinationElementId === null;
+        return $element instanceof Redirect && $element->destinationElementId === null && $this->suggestedElement !== null;
     }
 
 
@@ -94,7 +94,7 @@ JS, [
             'class' => 'btn',
         ]);
         $html = Html::beginTag('div', ['id' => $config['id']]);
-        $html .= Html::hiddenInput('destinationElementId', null);
+        $html .= Html::hiddenInput('destinationElementId');
         $html .= "<div class=\"readable\">" .
             "<blockquote class=\"note tip\">" .
             $message .

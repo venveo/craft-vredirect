@@ -762,6 +762,10 @@ EOD;
             $this->type = self::TYPE_STATIC;
         }
 
+        if ($this->destinationSiteId === null) {
+            $this->destinationElementId = null;
+        }
+
         return parent::beforeValidate();
     }
 
@@ -799,6 +803,11 @@ EOD;
     public function setSourceUrl($value): void
     {
         $this->_sourceUrl = $this->formatUrl(trim($value), true);
+    }
+
+    public function getDestinationElementId(): ?int
+    {
+        return $this->destinationSiteId !== null ? $this->destinationElementId : null;
     }
 
     public function getDestinationUrl(): ?string
@@ -1005,8 +1014,8 @@ EOD;
 
     public function getDestinationElement(): ?Element
     {
-        if ($this->destinationElementId !== null) {
-            return Craft::$app->getElements()->getElementById($this->destinationElementId, null, $this->siteId);
+        if ($this->destinationElementId !== null && $this->destinationSiteId !== null) {
+            return Craft::$app->getElements()->getElementById($this->destinationElementId, null, $this->destinationSiteId);
         }
         return null;
     }
