@@ -5,6 +5,7 @@ namespace venveo\redirect\fieldlayoutelements;
 use Craft;
 use craft\base\ElementInterface;
 use craft\fieldlayoutelements\BaseUiElement;
+use craft\helpers\Cp;
 use craft\helpers\Html;
 use venveo\redirect\elements\Redirect;
 use venveo\redirect\Plugin;
@@ -48,7 +49,6 @@ class LinkDestinationToElementTip extends BaseUiElement
     }
 
 
-
     public ElementInterface|null $suggestedElement;
 
 
@@ -89,15 +89,18 @@ JS, [
             ],
         ]);
 
-        $message = Plugin::t('This looks like an internal link. Would you like to link this redirect to the element to keep them in sync?');
+        $message = Plugin::t('This looks like an internal link. Would you like to link this redirect to its internal element to keep them in sync?');
         $button = Html::button('Yes, connect them.', [
             'class' => 'btn',
         ]);
+        $element = Cp::elementPreviewHtml([$this->suggestedElement]);
         $html = Html::beginTag('div', ['id' => $config['id']]);
         $html .= Html::hiddenInput('destinationElementId');
         $html .= "<div class=\"readable\">" .
             "<blockquote class=\"note tip\">" .
             $message .
+            '<br></br>' .
+            $element .
             '<br><br>' .
             $button .
             "</blockquote>" .

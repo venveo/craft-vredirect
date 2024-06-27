@@ -118,15 +118,15 @@ JS, [
                     'unlink-element-btn' => '',
                 ],
             ]);
+
+            $elementPreview = Cp::elementPreviewHtml([$element->destinationElement]);
             $html = Html::beginTag('div', ['id' => $config['id']]) .
-                Html::tag('p', Plugin::t('This redirect is connected to an element. If the connected element\'s URL changes, the redirect will update automatically. If the linked element is deleted, the redirect will use the original URL value supplied.')) .
-                Html::beginTag('div', ['class' => 'flex', 'style' => 'padding-top: 10px;']) .
-                Cp::elementSelectHtml([
-                    'disabled' => true,
-                    'name' => 'destinationElementId',
-                    'single' => true,
-                    'elements' => [$element->destinationElement],
-                ]) .
+                Html::beginTag('div', ['class' => 'readable', 'style' => 'margin-bottom: 20px']) .
+                Html::tag('blockquote',
+                    Plugin::t('This redirect is connected to an element. If the connected element\'s URL changes, the redirect will update automatically. If the linked element is deleted, the redirect will use the original URL value supplied.',), ['class' => 'note tip']) .
+                Html::endTag('div') .
+                Html::hiddenInput('destinationElementId', $element->destinationElementId) .
+                $elementPreview .
                 $unlinkButton .
 
                 Html::endTag('div') .
