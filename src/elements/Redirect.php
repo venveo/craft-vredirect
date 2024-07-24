@@ -1060,7 +1060,7 @@ EOD;
             return true;
         }
 
-        return $user->can(Plugin::PERMISSION_MANAGE_REDIRECTS) && $user->can('editSite:' . $this->site->uid);
+        return $user->can(Plugin::PERMISSION_MANAGE_REDIRECTS);
     }
 
 
@@ -1078,7 +1078,7 @@ EOD;
         if (parent::canDelete($user)) {
             return true;
         }
-        return $user->can(Plugin::PERMISSION_MANAGE_REDIRECTS) && $user->can('editSite:' . $this->site->uid);
+        return $user->can(Plugin::PERMISSION_MANAGE_REDIRECTS);
     }
 
     public function canSave(User $user): bool
@@ -1086,7 +1086,7 @@ EOD;
         if (parent::canSave($user)) {
             return true;
         }
-        return $user->can(Plugin::PERMISSION_MANAGE_REDIRECTS) && $user->can('editSite:' . $this->site->uid);
+        return $user->can(Plugin::PERMISSION_MANAGE_REDIRECTS);
     }
 
     public function canDeleteForSite(User $user): bool
@@ -1094,6 +1094,6 @@ EOD;
         if (parent::canDeleteForSite($user)) {
             return true;
         }
-        return $user->can(Plugin::PERMISSION_MANAGE_REDIRECTS) && $user->can('editSite:' . $this->site->uid);
+        return $user->can(Plugin::PERMISSION_MANAGE_REDIRECTS);
     }
 }

@@ -1,5 +1,11 @@
 # Redirect Changelog
 
+## 4.0.0-beta.7 - 2024-07-24
+
+### Fixed
+
+- Fixed issue preventing non-admins from creating redirects
+
 ## 4.0.0-beta.7 - 2024-06-27
 
 ### Added
