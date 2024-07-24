@@ -1,6 +1,6 @@
 # Redirect Changelog
 
-## 4.0.0-beta.7 - 2024-07-24
+## 4.0.0-beta.8 - 2024-07-24
 
 ### Fixed
 
